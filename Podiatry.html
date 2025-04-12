@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Platform for patients to book medical appointments easily with the ability to select specialties and doctors.">
+    <title>Medical Appointment Booking | HealthTech Solutions</title>
+    <link rel="stylesheet" href="css/podiastyle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- CSS para ocultar las flechas en el campo número -->
+    <style>
+        /* Para navegadores Webkit como Chrome, Safari y Opera */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Para Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+
+    <!-- Cargar la librería jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Southernmost Foot and Ankle Specialist</h1>
+    <p>In this portal, you can schedule an appointment with our Podiatry specialists</p>
+</header>
+
+<!-- Language Button to switch to Spanish -->
+<div class="main-content">
+    <button class="language-button" onclick="window.location.href = 'es/es-index.html';">Hacer cita en Español</button>
+</div>
+
+<div class="main-content">
+    <section>
+        <h2>With HealTime, booking your appointment has never been easier</h2>
+        <p>Step 1. Select Your Options</p>
+            <!-- Appointment scheduling form -->
+        <section class="form-section">
+            <form id="appointment-form">
+                <h3>Insurance Information</h3>
+                <div class="insurance-row">
+                    <select id="insurance" name="insurance" class="form-element" required>
+                        <option value="" disabled selected>-- Select Insurance --</option>
+                        <option value="Aetna_commercial/Medicare/Medicaid">Aetna commercial/Medicare/Medicaid</option>
+                        <option value="Ambetter">Ambetter</option>
+                        <option value="AmeriHealth_Caritas">AmeriHealth Caritas</option>
+                        <option value="AvMed_commercial/Medicare">AvMed commercial/Medicare</option>
+                        <option value="BCBS_commercial/Marketplace">BCBS commercial/Marketplace</option>
+                        <option value="Careplus">Careplus</option>
+                        <option value="Cigna">Cigna</option>
+                        <option value="Devoted">Devoted</option>
+                        <option value="Doctors_Health_Plans">Doctors Health Plans</option>
+                        <option value="Humana_commercial/Medicare">Humana commercial/Medicare</option>
+                        <option value="i_do_not_have_insurance">I do not have insurance</option>
+                    </select>
+
+                    <input type="text" id="member-id" name="member-id" class="form-element" required placeholder="Enter member ID">
+                </div>
+
+                <h4>Demographics</h4>
+                <div class="name-row">
+                    <input type="text" id="firstname" name="firstname" class="form-element" required placeholder="Enter first name">
+                    <input type="text" id="lastname" name="lastname" class="form-element" required placeholder="Enter last name">
+                    <input type="text" id="date-of-birth" name="date-of-birth" class="form-element" required placeholder="Enter date of birth">
+                    <!-- Se cambió el campo de teléfono a number y se aplicaron las restricciones de 10 dígitos -->
+                    <input type="tel" id="phone" name="phone" class="form-element" required placeholder="Enter phone number" min="1000000000" max="9999999999" oninput="validatePhoneNumber()">
+                </div>
+
+                <h5>Appointment Details</h5>
+                <div class="service-row">
+                    <select id="office" name="office" class="form-element" required>
+                        <option value="" disabled selected>-- Select Office --</option>
+                        <option value="coral_gables">Coral Gables</option>
+                        <option value="homestead">Homestead</option>
+                        <option value="key_west">Key West</option>
+                    </select>
+
+
+                    <select id="service" name="service" class="form-element" required>
+                        <option value="" disabled selected>-- Select Service --</option>
+                        <option value="fracture_care">Fracture Care</option>
+                        <option value="sport_medicine">Sport Medicine</option>
+                        <option value="wound_care">Wound Care</option>
+                        <option value="surgery">Surgery</option>
+                        <option value="spider_veins_treatment">Spider Veins Treatment</option>
+                        <option value="diabetic_foot_care">Diabetic Foot Care</option>
+                        <option value="custom_orthotics">Custom Orthotics</option>
+                        <option value="in_office_physical_therapy">In Office Physical Therapy</option>
+                        <option value="laser_treatment">Laser Treatment</option>
+                        <option value="home_visits">Home Visits</option>
+                    </select>
+
+                    <select id="doctor" name="doctor" class="form-element" required>
+                        <option value="" disabled selected>-- Select Doctor --</option>
+                        <option value="doctor1">D.P.M., FACFAS Bradley J. Makimaa</option>
+                        <option value="doctor2">D.P.M. Michael G. Simmons</option>
+                        <option value="doctor3">D.P.M., AACFAS Liana Korytowski-Seldin</option>
+                        <option value="doctor4">D.P.M., M.B.S. Miimii Thae</option>
+                    </select>
+
+                    <input type="text" id="appointment-date" name="appointment-date" class="form-element" required placeholder="Appointment date">
+                    <input type="time" id="appointment-time" name="appointment-time" class="form-element" required placeholder="Select time">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit">Schedule Appointment</button>
+                </div>
+            </form>
+        </section>
+    </section>
+</div>
+
+<footer>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="js/script.js"></script>
+    
+    <!-- Aquí se agrega el archivo JS para manejar la relación entre servicios y doctores -->
+    <script src="js/doctors.js" defer></script>
+
+    <!-- Agregar test.js aquí -->
+    <script src="js/test.js" defer></script> <!-- Vinculación del archivo test.js -->
+
+    <script>
+        // Obtener los campos del formulario
+        var insuranceInput = document.getElementById("insurance");
+        var memberIdInput = document.getElementById("member-id");
+
+        // Función para habilitar o deshabilitar el campo de ID Member dependiendo del valor de Insurance
+        function toggleMemberIdField() {
+            if (insuranceInput.value === "i_do_not_have_insurance") {
+                memberIdInput.disabled = true; // Deshabilitar el campo de ID Member
+                memberIdInput.value = ""; // Limpiar el valor del campo cuando se deshabilita
+            } else {
+                memberIdInput.disabled = false; // Habilitar el campo de ID Member
+            }
+        }
+
+        // Llamar a la función cada vez que el valor de Insurance cambie
+        insuranceInput.addEventListener("change", toggleMemberIdField);
+
+        // Llamar a la función al cargar la página para manejar el valor inicial
+        toggleMemberIdField();
+
+        // Validación del número de teléfono para asegurarse de que tenga exactamente 10 dígitos
+        function validatePhoneNumber() {
+            var phoneInput = document.getElementById("phone");
+            var phoneValue = phoneInput.value.replace(/\D/g, ''); // Eliminar cualquier carácter no numérico
+            if (phoneValue.length === 10) {
+                phoneInput.setCustomValidity(''); // Restablecer el mensaje de error si es válido
+            } else {
+                phoneInput.setCustomValidity('Por favor, ingrese un número de teléfono válido con 10 dígitos.');
+            }
+        }
+
+        // Generar el PDF cuando se envía el formulario
+        document.getElementById("appointment-form").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe de manera tradicional
+
+            // Recoger los datos del formulario
+            const insurance = document.getElementById("insurance").value;
+            const memberId = document.getElementById("member-id").value;
+            const firstname = document.getElementById("firstname").value;
+            const lastname = document.getElementById("lastname").value;
+            const dateOfBirth = document.getElementById("date-of-birth").value;
+            const phone = document.getElementById("phone").value;
+            const office = document.getElementById("office").value;
+            const service = document.getElementById("service").value;
+            const doctor = document.getElementById("doctor").value;
+            const appointmentDate = document.getElementById("appointment-date").value;
+            const appointmentTime = document.getElementById("appointment-time").value;
+
+            // Crear el objeto de datos para la solicitud
+            const data = {
+                insurance,
+                memberId,
+                firstname,
+                lastname,
+                dateOfBirth,
+                phone,
+                office,
+                service,
+                doctor,
+                appointmentDate,
+                appointmentTime
+            };
+
+            // Crear el PDF con los datos del formulario
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Título del PDF
+            doc.text("Appointment Details", 20, 20);
+
+            // Agregar los valores del formulario al PDF
+            doc.text(`Insurance: ${insurance}`, 20, 30);
+            doc.text(`Member ID: ${memberId}`, 20, 40);
+            doc.text(`First Name: ${firstname}`, 20, 50);
+            doc.text(`Last Name: ${lastname}`, 20, 60);
+            doc.text(`Date of Birth: ${dateOfBirth}`, 20, 70);
+            doc.text(`Phone: ${phone}`, 20, 80);
+            doc.text(`Office: ${office}`, 20, 90);
+            doc.text(`Service: ${service}`, 20, 100);
+            doc.text(`Doctor: ${doctor}`, 20, 110);
+            doc.text(`Appointment Date: ${appointmentDate}`, 20, 120);
+            doc.text(`Appointment Time: ${appointmentTime}`, 20, 130);
+
+            // Guardar el archivo PDF
+            doc.save("appointment-details.pdf");
+
+            // Enviar la solicitud POST al servidor
+            try {
+                const response = await fetch("http://localhost:3000/verify-insurance", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ phone, first name, appointmentDate, appointment>Time}) 
+                });
+
+                // Manejar la respuesta del servidor
+                const smsResult = await smsResponse.json();
+
+                // Verificar si la verificación del seguro fue exitosa
+                if (response.ok) {
+                    alert("Seguro verificado exitosamente: " + JSON.stringify(result.data));
+                } else {
+                    alert("Error al enviar el SMS: " + smsResult.message);
+                }
+            } catch (error) {
+                alert("Error en la conexión con el servidor: " + error.message);
+            }
+        });
+    </script>
+</footer>
+
+</body>
+</html>

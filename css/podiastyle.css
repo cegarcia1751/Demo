@@ -1,0 +1,231 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: white;
+    color: #444;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+header {
+    background-color: rgba(0, 51, 102, 0.9);
+    color: white;
+    padding: 0px;
+    text-align: center;
+    font-size: 1.5em;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 0px;
+    transition: all 0.3s ease-in-out;
+}
+
+header:hover {
+    transform: translateY(5px);
+}
+
+.main-content {
+    padding: 40px 20px;
+    text-align: left;
+}
+
+.language-button {
+    background-color: #00B0B9;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.0em;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.language-button:hover {
+    background-color: #009a9f;
+    transform: scale(1.05);
+}
+
+/* Form Styles */
+.form-section {
+    margin-top: auto;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-element {
+    flex: 1;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+.form-element {
+    max-width:1100px;
+    width: 90%;
+    padding: 12px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: auto;
+    font-size: 1em;
+    background-color: #fff;
+}
+
+.form-element select, .form-element input {
+    padding: 12px;
+    height: 40px;
+}
+
+.h3, h4, h5 {
+    font-size: 16px;
+}
+
+/* Button Styling */
+.form-section button {
+    background-color: #0078D4;
+    color: white;
+    font-size: 1.5em;
+    padding: 15px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+.form-section button:hover {
+    background-color: #005fa3;
+    transform: scale(1.05);
+}
+
+/* Estilos para los campos "First Name", "Last Name", "Phone Number" y "Date of Birth" */
+.name-row input, .contact-row input {
+    width: calc(50% - 10px); /* Hace que los campos sean más estrechos */
+    margin-right: 10px;
+}
+
+.contact-row input[type="tel"], .contact-row input[type="text"] {
+    width: calc(50% - 10px); /* 50% de ancho, ajustando el margen para crear espacio entre los campos */
+    margin-right: 10px;
+}
+
+.contact-row input[type="date"] {
+    width: calc(50% - 10px); /* Ajustar a un tamaño similar */
+    margin-right: 10px;
+}
+
+.name-row input[type="text"] {
+    width: calc(50% - 10px); /* Establece el 50% de ancho, con espacio entre los dos */
+}
+
+.name-row, .contact-row {
+    display: flex;
+    gap: 10px; /* Espacio entre los campos */
+}
+
+/* Ajustes para campos de "Insurance" y "Member ID" */
+.insurance-row select, .insurance-row input {
+    width: calc(50% - 10px);
+    margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
+}
+
+.member-id-row select, .member-id-row input {
+    width: calc(50% - 10px);
+    margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
+}
+
+@media screen and (max-width: 768px) {
+    .name-row input, .contact-row input {
+        width: 100%;
+        margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
+    }
+
+    /* Ajustes para los campos "Service", "Office" y "Doctor" */
+    .service-row input, .service-row select {
+        width: 100%;
+        margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
+    }
+
+    /* Ajustes para los campos de "Appointment Date" y "Appointment Time" */
+    .form-row input {
+        width: 100%;
+        margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
+    }
+
+    /* Ajuste para los campos de "Insurance" y "Member ID" */
+    .insurance-row select, .insurance-row input {
+        width: 100%;
+        margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
+    }
+    
+    /* Ajuste para los campos "Member ID" */
+    .member-id-row select, .member-id-row input {
+        width: 100%;
+        margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
+    }
+}
+
+/* Spacing for form rows */
+.insurance-row, .service-row, .office-doctor-row, .doctor-row, .name-row, .contact-row, .form-row {
+    margin-bottom: 20px;
+}
+
+.service-row {
+    display: flex;
+    gap: 10px; 
+    justify-content: space-between; 
+}
+
+.service-row .form-element {
+    flex: 1;           
+    max-width: 100%;    
+    padding: 12px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    background-color: #fff;
+}
+
+.form-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .language-button {
+        font-size: 1.3em;
+        padding: 12px 25px;
+    }
+
+    .form-section button {
+        font-size: 1.3em;
+        padding: 12px 30px;
+    }
+}
